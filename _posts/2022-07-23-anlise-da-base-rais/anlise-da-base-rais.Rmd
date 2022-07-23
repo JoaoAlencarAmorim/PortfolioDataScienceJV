@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 ### Perguntas de pesquisa:
 
-1. Quanto ganha um Ciêntista de Dados no Brasil?
+1. Quanto ganhou em média um Ciêntista de Dados no Brasil em 2020?
 2. Quanto o salário médio varia no tempo?
 3. Quanto o salário médio varia regionalmente?
 4. Quanto o salário médio varia por características do profissional (gênero, raça/cor, idade)
@@ -39,6 +39,11 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Acessando os dados da RAIS
 Utilizando o datalake da iniciativa [Base dos Dados](https://basedosdados.org).
+
+```{r}
+library(bigrquery)
+library(dplyr)
+```
 
 ```{r, cache = TRUE, eval = FALSE}
 # Carregando a biblioteca bigquery
@@ -88,6 +93,8 @@ readr::write_rds(tabela_microdados_vinculos, "tabela_microdados_vinculos.rds", c
 tabela_microdados_vinculos <- readRDS("tabela_microdados_vinculos.rds")
 ```
 
+
+### Quanto a média salarial varia com o tempo?
 ```{r}
 library(ggplot2)
 
@@ -112,6 +119,78 @@ tabela_medias |>
   knitr::kable()
 ```
 
+
+### Quanto a média salarial varia regionalmente?
+```{r}
+tabela_media_uf <- tabela_microdados_vinculos |>
+  group_by(sigla_uf) |>
+  summarise(
+    media_por_regiao = mean(valor_remuneracao_media)
+  )
+tabela_media_uf
+
+library(forcats)
+tabela_media_uf |>
+  mutate(sigla_uf = fct_reorder(sigla_uf, media_por_regiao)) |>
+  arrange(desc(sigla_uf)) |>
+  ggplot() +
+  aes(y = sigla_uf, x = media_por_regiao) +
+  geom_col() +
+  labs(y = "Unidade da Federação", x = "Média Salarial (R$)")
+```
+#### Utilizando a mediana ao invés da média?
+```{r}
+tabela_mediana_uf <- tabela_microdados_vinculos |>
+  group_by(sigla_uf) |>
+  summarise(
+    mediana_por_regiao = median(valor_remuneracao_media)
+  )
+tabela_mediana_uf
+
+library(forcats)
+tabela_mediana_uf |>
+  mutate(sigla_uf = fct_reorder(sigla_uf, mediana_por_regiao)) |>
+  arrange(desc(sigla_uf)) |>
+  ggplot() +
+  aes(y = sigla_uf, x = mediana_por_regiao) +
+  geom_col() +
+  labs(y = "Unidade da Federação", x = "Mediana Salarial (R$)")
+```
+### Os salários variam pelo sexo?
+```{r}
+tabela_resumo_sexo <- tabela_microdados_vinculos |>
+  group_by(sexo) |>
+  summarise(
+    media = mean(valor_remuneracao_media),
+    mediana = median(valor_remuneracao_media)
+  )
+tabela_resumo_sexo |>
+  knitr::kable()
+```
+### Os salários variam pela etinia?
+```{r}
+tabela_resumo_raca_cor <- tabela_microdados_vinculos |>
+  group_by(raca_cor) |>
+  summarise(
+    media = mean(valor_remuneracao_media),
+    mediana = median(valor_remuneracao_media)
+  )
+tabela_resumo_raca_cor |>
+  knitr::kable()
+```
+```{r}
+tabela_resumo_sexo_raca_cor <- tabela_microdados_vinculos |>
+  group_by(sexo, raca_cor) |>
+  summarise(
+    media = mean(valor_remuneracao_media),
+    mediana = median(valor_remuneracao_media)
+  )
+tabela_resumo_sexo_raca_cor |>
+  knitr::kable()
+ggplot(tabela_resumo_sexo_raca_cor, 
+       aes(x = raca_cor, y = media, fill = sexo)) +
+  geom_col(position = 'dodge')
+```
 
 
 ### Restrições:
