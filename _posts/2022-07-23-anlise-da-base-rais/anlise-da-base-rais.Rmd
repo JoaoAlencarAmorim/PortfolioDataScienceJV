@@ -14,9 +14,12 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
-### Perguntas:
+### Perguntas de pesquisa:
 
 1. Quanto ganha um Ciêntista de Dados no Brasil?
+2. Quanto o salário médio varia no tempo?
+3. Quanto o salário médio varia regionalmente?
+4. Quanto o salário médio varia por características do profissional (gênero, raça/cor, idade)
 
 ### Fonte:
 
@@ -24,14 +27,20 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ### Premissas:
 
-1.  Cientistas de dados são cadastrados com os seguintes CBO's:
-    1.  252525:
-2. 
+1.  Cientistas de dados são cadastrados com os seguintes códigos do CBO ([Código Brasileiro de Ocupações](http://www.mtecbo.gov.br/cbosite/pages/pesquisas/BuscaPorCodigo.jsf)):
+    1. 252515: Analista de cobrança (instituições financeiras)
+    2. 252525: Analista de crédito (instituições financeiras)
+    3. 211110: Especialista em pesquisa operacional 
+    4. 211205: Estatístico
+    5. 211210: Estatístico (estatística aplicada)
+    6. 211215: Estatístico teórico
+    7. 411035: Auxiliar de estatística
+    8. 131120: Gerente de serviços sociais
 
 ## Acessando os dados da RAIS
 Utilizando o datalake da iniciativa [Base dos Dados](https://basedosdados.org).
 
-```{r}
+```{r, cache = TRUE, eval = FALSE}
 # Carregando a biblioteca bigquery
 library(bigrquery)
 library(dplyr)
@@ -40,20 +49,74 @@ library(dplyr)
 # tabela <- read.csv()
 # head(tabela, 5)
 
+bigrquery::bq_auth("jvitor968@gmail.com")
+
 conexao <- dbConnect(
   bigquery(),
   project = "basedosdados",
   dataset = "br_me_rais",
   billing = "meuprimeiroprojetor",
 )
-head(tbl(conexao, "microdados_vinculos"), 5)
+
+# primeiras_cinco_linhas <-  collect(head(select(tbl(conexao, "microdados_vinculos"), everything()), 5))
+
+primeiras_cinco_linhas <- tbl(conexao, "microdados_vinculos") |>
+  select(everything()) |>
+  head(5) |>
+  collect()
+
+#primeiras_cinco_linhas
 ```
+
+```{r, cache = TRUE, eval = FALSE}
+codigos_cbo <- c("252515", "252525", "211110", "211205", "211210", "411035", "211215", "131120")
+
+tabela_microdados_vinculos_tbl <- tbl(conexao, "microdados_vinculos") |>
+  select(everything()) |>
+  filter(
+    ano >= 2013,
+    cbo_2002 %in% codigos_cbo
+  )
+
+tabela_microdados_vinculos <- collect(tabela_microdados_vinculos_tbl)
+```
+```{r, eval = FALSE}
+readr::write_rds(tabela_microdados_vinculos, "tabela_microdados_vinculos.rds", compress = "xz")
+```
+
+```{r}
+tabela_microdados_vinculos <- readRDS("tabela_microdados_vinculos.rds")
+```
+
+```{r}
+library(ggplot2)
+
+# filter
+# select
+# mutate
+# group_by
+# arrange
+
+tabela_medias <- tabela_microdados_vinculos |>
+  group_by(ano) |>
+  summarise(media_salario = mean(valor_remuneracao_media))
+
+ggplot(tabela_medias) +
+  aes(x = ano, y = media_salario) +
+  geom_col() +
+  scale_x_continuous(breaks = 2013:2020)
+```
+
+```{r}
+tabela_medias |>
+  knitr::kable()
+```
+
+
 
 ### Restrições:
 
 1. Os dados são apenas de vínculos formais.
-```{r}
-1+2
-```
+
 
 **Dica:** Distill is a publication format for scientific and technical writing, native to the web. Learn more about using Distill at <https://rstudio.github.io/distill>.

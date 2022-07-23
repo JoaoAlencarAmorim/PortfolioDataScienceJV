@@ -118,7 +118,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["anlise-da-base-rais_files/anchor-4.2.2/anchor.min.js","anlise-da-base-rais_files/bowser-1.9.3/bowser.min.js","anlise-da-base-rais_files/distill-2.2.21/template.v2.js","anlise-da-base-rais_files/header-attrs-2.14/header-attrs.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.map","anlise-da-base-rais_files/popper-2.6.0/popper.min.js","anlise-da-base-rais_files/tippy-6.2.7/tippy-bundle.umd.min.js","anlise-da-base-rais_files/tippy-6.2.7/tippy-light-border.css","anlise-da-base-rais_files/tippy-6.2.7/tippy.css","anlise-da-base-rais_files/tippy-6.2.7/tippy.umd.min.js","anlise-da-base-rais_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["anlise-da-base-rais_files/anchor-4.2.2/anchor.min.js","anlise-da-base-rais_files/bowser-1.9.3/bowser.min.js","anlise-da-base-rais_files/distill-2.2.21/template.v2.js","anlise-da-base-rais_files/figure-html5/unnamed-chunk-3-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-5-1.png","anlise-da-base-rais_files/header-attrs-2.14/header-attrs.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.map","anlise-da-base-rais_files/popper-2.6.0/popper.min.js","anlise-da-base-rais_files/tippy-6.2.7/tippy-bundle.umd.min.js","anlise-da-base-rais_files/tippy-6.2.7/tippy-light-border.css","anlise-da-base-rais_files/tippy-6.2.7/tippy.css","anlise-da-base-rais_files/tippy-6.2.7/tippy.umd.min.js","anlise-da-base-rais_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1516,9 +1516,13 @@ class="uri">https://example.com/joaoalencaramorim</a>
 </div>
 
 <div class="d-article">
-<h3 id="perguntas">Perguntas:</h3>
+<h3 id="perguntas-de-pesquisa">Perguntas de pesquisa:</h3>
 <ol type="1">
-<li>Quanto ganha um Ciêntista de Dados no Brasil</li>
+<li>Quanto ganha um Ciêntista de Dados no Brasil?</li>
+<li>Quanto o salário médio varia no tempo?</li>
+<li>Quanto o salário médio varia regionalmente?</li>
+<li>Quanto o salário médio varia por características do profissional
+(gênero, raça/cor, idade)</li>
 </ol>
 <h3 id="fonte">Fonte:</h3>
 <ol type="1">
@@ -1528,33 +1532,92 @@ Anual de Informações Sociais (RAIS)</a></li>
 </ol>
 <h3 id="premissas">Premissas:</h3>
 <ol type="1">
-<li>Cientistas de dados são cadastrados com os seguintes CBO’s:
+<li>Cientistas de dados são cadastrados com os seguintes códigos do CBO
+(<a
+href="http://www.mtecbo.gov.br/cbosite/pages/pesquisas/BuscaPorCodigo.jsf">Código
+Brasileiro de Ocupações</a>):
 <ol type="1">
-<li>252525:</li>
+<li>252515: Analista de cobrança (instituições financeiras)</li>
+<li>252525: Analista de crédito (instituições financeiras)</li>
+<li>211110: Especialista em pesquisa operacional</li>
+<li>211205: Estatístico</li>
+<li>211210: Estatístico (estatística aplicada)</li>
+<li>211215: Estatístico teórico</li>
+<li>411035: Auxiliar de estatística</li>
+<li>131120: Gerente de serviços sociais</li>
 </ol></li>
-<li></li>
 </ol>
 <h2 id="acessando-os-dados-da-rais">Acessando os dados da RAIS</h2>
 <p>Utilizando o datalake da iniciativa <a
 href="https://basedosdados.org">Base dos Dados</a>.</p>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>&lt;BigQueryConnection&gt;
-  Dataset: basedosdados.br_me_rais
-  Billing: meuprimeiroprojetor</code></pre>
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">ano</th>
+<th style="text-align: right;">media_salario</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2013</td>
+<td style="text-align: right;">3457.553</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2014</td>
+<td style="text-align: right;">3702.131</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">4229.452</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2016</td>
+<td style="text-align: right;">4409.327</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2017</td>
+<td style="text-align: right;">4969.977</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2018</td>
+<td style="text-align: right;">4886.116</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2019</td>
+<td style="text-align: right;">4969.408</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">4823.555</td>
+</tr>
+</tbody>
+</table>
 </div>
 <h3 id="restrições">Restrições:</h3>
 <ol type="1">
-<li>Os dados são apenas de vínculos formais.
-<div class="layout-chunk" data-layout="l-body">
-</li>
+<li>Os dados são apenas de vínculos formais.</li>
 </ol>
-<pre><code>[1] 3</code></pre>
-</div>
 <p><strong>Dica:</strong> Distill is a publication format for scientific
 and technical writing, native to the web. Learn more about using Distill
 at <a href="https://rstudio.github.io/distill"
 class="uri">https://rstudio.github.io/distill</a>.</p>
-<div class="sourceCode" id="cb3"><pre
+<div class="sourceCode" id="cb1"><pre
 class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
