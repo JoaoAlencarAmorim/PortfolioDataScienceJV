@@ -11,13 +11,49 @@ output:
     self_contained: false
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+### Perguntas:
 
-Distill is a publication format for scientific and technical writing, native to the web.
+1. Quanto ganha um Ciêntista de Dados no Brasil?
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+### Fonte:
 
+1. [Relação Anual de Informações Sociais (RAIS)](https://basedosdados.org/dataset/br-me-rais?bdm_table=microdados_vinculos)
 
+### Premissas:
+
+1.  Cientistas de dados são cadastrados com os seguintes CBO's:
+    1.  252525:
+2. 
+
+## Acessando os dados da RAIS
+Utilizando o datalake da iniciativa [Base dos Dados](https://basedosdados.org).
+
+```{r}
+# Carregando a biblioteca bigquery
+library(bigrquery)
+library(dplyr)
+
+# como usaria se fosse lendo de um arquivo
+# tabela <- read.csv()
+# head(tabela, 5)
+
+conexao <- dbConnect(
+  bigquery(),
+  project = "basedosdados",
+  dataset = "br_me_rais",
+  billing = "meuprimeiroprojetor",
+)
+head(tbl(conexao, "microdados_vinculos"), 5)
+```
+
+### Restrições:
+
+1. Os dados são apenas de vínculos formais.
+```{r}
+1+2
+```
+
+**Dica:** Distill is a publication format for scientific and technical writing, native to the web. Learn more about using Distill at <https://rstudio.github.io/distill>.

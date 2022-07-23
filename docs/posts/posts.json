@@ -28,9 +28,9 @@
     ],
     "date": "2022-07-23",
     "categories": [],
-    "contents": "\r\nDistill is a publication format for scientific and technical writing,\r\nnative to the web.\r\nLearn more about using Distill at https://rstudio.github.io/distill.\r\n\r\n\r\n\r\n",
+    "contents": "\r\nPerguntas:\r\nQuanto ganha um Ciêntista de Dados no Brasil\r\nFonte:\r\nRelação\r\nAnual de Informações Sociais (RAIS)\r\nPremissas:\r\nCientistas de dados são cadastrados com os seguintes CBO’s:\r\n252525:\r\n\r\n\r\nAcessando os dados da RAIS\r\nUtilizando o datalake da iniciativa Base dos Dados.\r\n\r\n<BigQueryConnection>\r\n  Dataset: basedosdados.br_me_rais\r\n  Billing: meuprimeiroprojetor\r\n\r\nRestrições:\r\nOs dados são apenas de vínculos formais.\r\n\r\n\r\n\r\n[1] 3\r\n\r\nDica: Distill is a publication format for scientific\r\nand technical writing, native to the web. Learn more about using Distill\r\nat https://rstudio.github.io/distill.\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2022-07-23T13:08:40-03:00",
+    "last_modified": "2022-07-23T14:16:28-03:00",
     "input_file": "anlise-da-base-rais.knit.md"
   }
 ]
