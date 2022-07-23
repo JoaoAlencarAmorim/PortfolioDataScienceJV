@@ -15,5 +15,22 @@
     "preview": {},
     "last_modified": "2022-07-23T12:40:56-03:00",
     "input_file": {}
+  },
+  {
+    "path": "posts/2022-07-23-anlise-da-base-rais/",
+    "title": "Análise da base RAIS",
+    "description": "Análise em R dos salários referentes a cientistas de dados da na base RAIS. Projeto feito na Semana Data Science na Prática com a Curso-R",
+    "author": [
+      {
+        "name": "João Vitor Alencar Amorim",
+        "url": "https://example.com/joaoalencaramorim"
+      }
+    ],
+    "date": "2022-07-23",
+    "categories": [],
+    "contents": "\r\nDistill is a publication format for scientific and technical writing,\r\nnative to the web.\r\nLearn more about using Distill at https://rstudio.github.io/distill.\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2022-07-23T13:08:40-03:00",
+    "input_file": "anlise-da-base-rais.knit.md"
   }
 ]

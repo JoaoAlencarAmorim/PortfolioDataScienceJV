@@ -1,0 +1,23 @@
+---
+title: "Análise da base RAIS"
+description: |
+  Análise em R dos salários referentes a cientistas de dados da na base RAIS. Projeto feito na Semana Data Science na Prática com a Curso-R
+author:
+  - name: João Vitor Alencar Amorim
+    url: https://example.com/joaoalencaramorim
+date: 2022-07-23
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Distill is a publication format for scientific and technical writing, native to the web.
+
+Learn more about using Distill at <https://rstudio.github.io/distill>.
+
+
