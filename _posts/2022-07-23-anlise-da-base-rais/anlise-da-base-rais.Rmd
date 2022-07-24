@@ -1,7 +1,8 @@
 ---
 title: "Análise da base RAIS"
 description: |
-  Análise em R dos salários referentes a cientistas de dados da na base RAIS. Projeto feito na Semana Data Science na Prática com a Curso-R
+  Análise em R dos salários referentes a cientistas de dados na base RAIS (Para este caso: 390.583 linhas, 267.60 GB). De início é feito uma análise exploratória e em seguida é encontrado um modelo através de Regressão Linear. Projeto feito com auxílio da Semana Data Science na Prática da Curso-R.
+  
 author:
   - name: João Vitor Alencar Amorim
     url: https://example.com/joaoalencaramorim
@@ -14,18 +15,18 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
-### Perguntas de pesquisa:
+## Perguntas de pesquisa:
 
 1. Quanto ganhou em média um Ciêntista de Dados no Brasil em 2020?
 2. Quanto o salário médio varia no tempo?
 3. Quanto o salário médio varia regionalmente?
 4. Quanto o salário médio varia por características do profissional (gênero, raça/cor, idade)
 
-### Fonte:
+## Fonte:
 
 1. [Relação Anual de Informações Sociais (RAIS)](https://basedosdados.org/dataset/br-me-rais?bdm_table=microdados_vinculos)
 
-### Premissas:
+## Premissas:
 
 1.  Cientistas de dados são cadastrados com os seguintes códigos do CBO ([Código Brasileiro de Ocupações](http://www.mtecbo.gov.br/cbosite/pages/pesquisas/BuscaPorCodigo.jsf)):
     1. 252515: Analista de cobrança (instituições financeiras)
@@ -37,45 +38,35 @@ knitr::opts_chunk$set(echo = FALSE)
     7. 411035: Auxiliar de estatística
     8. 131120: Gerente de serviços sociais
 
-## Acessando os dados da RAIS
+## Resolução:
+### Acessando os dados da RAIS
 Utilizando o datalake da iniciativa [Base dos Dados](https://basedosdados.org).
+Armazenada na Google Cloud
 
-```{r}
+```{r echo=TRUE}
+# Carregando os pacotes necessários
 library(bigrquery)
 library(dplyr)
 ```
 
-```{r, cache = TRUE, eval = FALSE}
-# Carregando a biblioteca bigquery
-library(bigrquery)
-library(dplyr)
-
-# como usaria se fosse lendo de um arquivo
-# tabela <- read.csv()
-# head(tabela, 5)
-
+```{r echo=TRUE, cache=TRUE, eval = FALSE}
+# Setando o email da conta Google utilizada para conexão
 bigrquery::bq_auth("jvitor968@gmail.com")
 
+# Criando a conexão
 conexao <- dbConnect(
   bigquery(),
   project = "basedosdados",
   dataset = "br_me_rais",
-  billing = "meuprimeiroprojetor",
+  billing = "meuprimeiroprojetor", # id do projeto criado na Google Cloud
 )
 
-# primeiras_cinco_linhas <-  collect(head(select(tbl(conexao, "microdados_vinculos"), everything()), 5))
-
-primeiras_cinco_linhas <- tbl(conexao, "microdados_vinculos") |>
-  select(everything()) |>
-  head(5) |>
-  collect()
-
-#primeiras_cinco_linhas
 ```
 
-```{r, cache = TRUE, eval = FALSE}
+```{r eval=FALSE, echo=TRUE, message=TRUE, warning=TRUE, cache=TRUE}
 codigos_cbo <- c("252515", "252525", "211110", "211205", "211210", "411035", "211215", "131120")
 
+# Filtrando pelo cbo e os anos acima de 2013
 tabela_microdados_vinculos_tbl <- tbl(conexao, "microdados_vinculos") |>
   select(everything()) |>
   filter(
@@ -85,24 +76,19 @@ tabela_microdados_vinculos_tbl <- tbl(conexao, "microdados_vinculos") |>
 
 tabela_microdados_vinculos <- collect(tabela_microdados_vinculos_tbl)
 ```
-```{r, eval = FALSE}
+### Escrevendo os dados filtrados em arquivo para evitar está requisitando ao Google Cloud sempre que o script for executado
+```{r, echo=TRUE, eval=FALSE}
 readr::write_rds(tabela_microdados_vinculos, "tabela_microdados_vinculos.rds", compress = "xz")
 ```
-
-```{r}
+### Lendo os dados a partir do arquivo escrito na etapa anterior
+```{r echo=TRUE}
 tabela_microdados_vinculos <- readRDS("tabela_microdados_vinculos.rds")
 ```
 
 
-### Quanto a média salarial varia com o tempo?
-```{r}
+### 1ª Questão: Quanto a média salarial variou com o tempo?
+```{r echo=TRUE}
 library(ggplot2)
-
-# filter
-# select
-# mutate
-# group_by
-# arrange
 
 tabela_medias <- tabela_microdados_vinculos |>
   group_by(ano) |>
@@ -120,16 +106,16 @@ tabela_medias |>
 ```
 
 
-### Quanto a média salarial varia regionalmente?
-```{r}
+### 2ª Questão: Quanto a média salarial varia regionalmente?
+```{r echo=TRUE}
 tabela_media_uf <- tabela_microdados_vinculos |>
   group_by(sigla_uf) |>
   summarise(
     media_por_regiao = mean(valor_remuneracao_media)
   )
-tabela_media_uf
 
 library(forcats)
+
 tabela_media_uf |>
   mutate(sigla_uf = fct_reorder(sigla_uf, media_por_regiao)) |>
   arrange(desc(sigla_uf)) |>
@@ -138,14 +124,13 @@ tabela_media_uf |>
   geom_col() +
   labs(y = "Unidade da Federação", x = "Média Salarial (R$)")
 ```
-#### Utilizando a mediana ao invés da média?
+#### Será que há muitos salários discrepantes puxando muito a média pra cima? Vamos verificar o comportamento no caso da mediana:
 ```{r}
 tabela_mediana_uf <- tabela_microdados_vinculos |>
   group_by(sigla_uf) |>
   summarise(
     mediana_por_regiao = median(valor_remuneracao_media)
   )
-tabela_mediana_uf
 
 library(forcats)
 tabela_mediana_uf |>
@@ -157,13 +142,18 @@ tabela_mediana_uf |>
   labs(y = "Unidade da Federação", x = "Mediana Salarial (R$)")
 ```
 ### Os salários variam pelo sexo?
-```{r}
+```{r echo=TRUE}
 tabela_resumo_sexo <- tabela_microdados_vinculos |>
   group_by(sexo) |>
   summarise(
     media = mean(valor_remuneracao_media),
     mediana = median(valor_remuneracao_media)
   )
+
+ggplot(tabela_resumo_sexo) +
+  aes(x = sexo, y = media, fill = sexo) +
+  geom_col()
+
 tabela_resumo_sexo |>
   knitr::kable()
 ```
@@ -193,7 +183,7 @@ ggplot(tabela_resumo_sexo_raca_cor,
 ```
 
 
-### Restrições:
+## Restrições:
 
 1. Os dados são apenas de vínculos formais.
 
