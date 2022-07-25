@@ -3,6 +3,7 @@ title: "Portfolio Data Science JVAA"
 description: |
   Portfolio Data Science JVAA
 output_dir: "docs"
+theme: beforeISleep.css
 navbar:
   right:
     - text: "Home"
