@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Premissas:
 
-1.  Cientistas de dados são cadastrados com os seguintes códigos do CBO ([Código Brasileiro de Ocupações](http://www.mtecbo.gov.br/cbosite/pages/pesquisas/BuscaPorCodigo.jsf)):
+1.  Cientistas de dados possivelmente foram cadastrados com os seguintes códigos do CBO ([Código Brasileiro de Ocupações](http://www.mtecbo.gov.br/cbosite/pages/pesquisas/BuscaPorCodigo.jsf)), antes da inserção do seu código 2031-05 em 2022:
     1. 252515: Analista de cobrança (instituições financeiras)
     2. 252525: Analista de crédito (instituições financeiras)
     3. 211110: Especialista em pesquisa operacional 
@@ -38,7 +38,7 @@ knitr::opts_chunk$set(echo = FALSE)
     7. 411035: Auxiliar de estatística
     8. 131120: Gerente de serviços sociais
 
-## Resolução:
+## Análise Exploratória:
 ### Acessando os dados da RAIS
 Utilizando o datalake da iniciativa [Base dos Dados](https://basedosdados.org).
 Armazenada na Google Cloud
@@ -65,7 +65,6 @@ conexao <- dbConnect(
 
 ```{r eval=FALSE, echo=TRUE, message=TRUE, warning=TRUE, cache=TRUE}
 codigos_cbo <- c("252515", "252525", "211110", "211205", "211210", "411035", "211215", "131120")
-cbo_engenheiro_civil <- c("2142-05", "2142-10", "2142-15", "2142-20", "2142-25", "2142-30", "2142-35", "2142-40")
 
 # Filtrando pelo cbo e os anos acima de 2013
 tabela_microdados_vinculos_tbl <- tbl(conexao, "microdados_vinculos") |>
@@ -77,7 +76,7 @@ tabela_microdados_vinculos_tbl <- tbl(conexao, "microdados_vinculos") |>
 
 tabela_microdados_vinculos <- collect(tabela_microdados_vinculos_tbl)
 ```
-### Escrevendo os dados filtrados em arquivo para evitar está requisitando ao Google Cloud sempre que o script for executado
+### Escrevendo os dados filtrados em arquivo para evitar novas requisições ao Google Cloud sempre que o script for executado
 ```{r, echo=TRUE, eval=FALSE}
 readr::write_rds(tabela_microdados_vinculos, "tabela_microdados_vinculos.rds", compress = "xz")
 ```
@@ -85,57 +84,14 @@ readr::write_rds(tabela_microdados_vinculos, "tabela_microdados_vinculos.rds", c
 ```{r echo=TRUE}
 tabela_microdados_vinculos <- readRDS("tabela_microdados_vinculos.rds")
 ```
-
-### Verificação CBO
+### 1ª Questão: Quanto ganhou em média um Ciêntista de Dados no Brasil em 2020?
 ```{r echo=TRUE}
-library(ggplot2)
-codigos_cbo <- c("252515", "252525", "211110", "211205", "211210", "411035", "211215", "131120")
-tabela_medias_CBO <- tabela_microdados_vinculos |>
-  group_by(cbo_2002) |>
-  summarise(media_salario = median(valor_remuneracao_media))
 
-ggplot(tabela_medias_CBO) +
-  aes(x = codigos_cbo, y = media_salario) +
-  geom_col() +
-  labs(y = "CBO", x = "Salário Médio (R$)")
-```
-```{r}
-tabela_211110 <- tabela_microdados_vinculos |>
-  filter(
-    cbo_2002 %in% c("252515", "252525", "211205", "211210")
-  )
-tabela_media_uf <- tabela_211110 |>
-  group_by(sigla_uf) |>
-  summarise(
-    media_por_regiao = median(valor_remuneracao_media)
-  )
-
-library(forcats)
-
-tabela_media_uf |>
-  mutate(sigla_uf = fct_reorder(sigla_uf, media_por_regiao)) |>
-  arrange(desc(sigla_uf)) |>
-  ggplot() +
-  aes(y = sigla_uf, x = media_por_regiao) +
-  geom_col() +
-  labs(y = "Unidade da Federação", x = "Média Salarial (R$)")
 ```
 
+### 2ª Questão: Quanto a média salarial variou com o tempo?
 ```{r echo=TRUE}
-library(ggplot2)
-codigos_cbo <- c("252515", "252525", "211110", "211205", "211210", "411035", "211215", "131120")
-tabela_medias_ano <- tabela_microdados_vinculos |>
-  group_by(ano, cbo_2002) |>
-  summarise(media_salario = mean(valor_remuneracao_media))
-
-ggplot(tabela_medias_ano) +
-  aes(x = ano, y = media_salario) +
-  geom_col() +
-  labs(y = "CBO", x = "Salário Médio (R$)")
-```
-
-### 1ª Questão: Quanto a média salarial variou com o tempo?
-```{r echo=TRUE}
+# pacote para plotagem de gráficos
 library(ggplot2)
 
 tabela_medias <- tabela_microdados_vinculos |>
@@ -155,7 +111,7 @@ tabela_medias |>
 ```
 
 
-### 2ª Questão: Quanto a média salarial varia regionalmente?
+### 3ª Questão: Quanto a média salarial varia regionalmente?
 ```{r echo=TRUE}
 tabela_media_uf <- tabela_microdados_vinculos |>
   group_by(sigla_uf) |>
@@ -173,7 +129,7 @@ tabela_media_uf |>
   geom_col() +
   labs(y = "Unidade da Federação", x = "Média Salarial (R$)")
 ```
-#### Será que há muitos salários discrepantes puxando muito a média pra cima? Vamos verificar o comportamento no caso da mediana:
+#### Será que há muitos salários discrepantes puxando a média pra cima de tal forma que deixe de representar brm a amostra? Vamos verificar o comportamento no caso da mediana:
 ```{r}
 tabela_mediana_uf <- tabela_microdados_vinculos |>
   group_by(sigla_uf) |>
@@ -190,6 +146,7 @@ tabela_mediana_uf |>
   geom_col() +
   labs(y = "Unidade da Federação", x = "Mediana Salarial (R$)")
 ```
+
 ### Os salários variam pelo sexo?
 ```{r echo=TRUE}
 tabela_resumo_sexo <- tabela_microdados_vinculos |>
@@ -206,6 +163,7 @@ ggplot(tabela_resumo_sexo) +
 tabela_resumo_sexo |>
   knitr::kable()
 ```
+
 ### Os salários variam pela etnia?
 ```{r}
 tabela_resumo_raca_cor <- tabela_microdados_vinculos |>
@@ -217,6 +175,7 @@ tabela_resumo_raca_cor <- tabela_microdados_vinculos |>
 tabela_resumo_raca_cor |>
   knitr::kable()
 ```
+
 ```{r}
 tabela_resumo_sexo_raca_cor <- tabela_microdados_vinculos |>
   group_by(sexo, raca_cor) |>
@@ -235,6 +194,20 @@ ggplot(tabela_resumo_sexo_raca_cor,
 ## Restrições:
 
 1. Os dados são apenas de vínculos formais.
+2. Os salários médios são bem diferentes entre os CBO's, o que indica que estes podem não ter sido os melhores códigos a serem escolhidos.
 
+### Verificação CBO
+```{r echo=TRUE}
+library(ggplot2)
+codigos_cbo <- c("252515", "252525", "211110", "211205", "211210", "411035", "211215", "131120")
+tabela_medias_CBO <- tabela_microdados_vinculos |>
+  group_by(cbo_2002) |>
+  summarise(media_salario = median(valor_remuneracao_media))
+
+ggplot(tabela_medias_CBO) +
+  aes(x = codigos_cbo, y = media_salario) +
+  geom_col() +
+  labs(y = "Salário médio (R$)", x = "Códigos por ocupação")
+```
 
 **Dica:** Distill is a publication format for scientific and technical writing, native to the web. Learn more about using Distill at <https://rstudio.github.io/distill>.

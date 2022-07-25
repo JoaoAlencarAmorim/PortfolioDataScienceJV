@@ -118,7 +118,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["anlise-da-base-rais_files/anchor-4.2.2/anchor.min.js","anlise-da-base-rais_files/bowser-1.9.3/bowser.min.js","anlise-da-base-rais_files/distill-2.2.21/template.v2.js","anlise-da-base-rais_files/figure-html5/unnamed-chunk-10-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-11-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-12-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-13-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-15-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-3-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-5-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-6-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-7-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-8-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-9-1.png","anlise-da-base-rais_files/header-attrs-2.14/header-attrs.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.map","anlise-da-base-rais_files/popper-2.6.0/popper.min.js","anlise-da-base-rais_files/tippy-6.2.7/tippy-bundle.umd.min.js","anlise-da-base-rais_files/tippy-6.2.7/tippy-light-border.css","anlise-da-base-rais_files/tippy-6.2.7/tippy.css","anlise-da-base-rais_files/tippy-6.2.7/tippy.umd.min.js","anlise-da-base-rais_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["anlise-da-base-rais_files/anchor-4.2.2/anchor.min.js","anlise-da-base-rais_files/bowser-1.9.3/bowser.min.js","anlise-da-base-rais_files/distill-2.2.21/template.v2.js","anlise-da-base-rais_files/figure-html5/unnamed-chunk-10-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-11-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-12-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-13-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-14-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-15-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-3-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-5-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-6-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-7-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-8-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-9-1.png","anlise-da-base-rais_files/header-attrs-2.14/header-attrs.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.map","anlise-da-base-rais_files/popper-2.6.0/popper.min.js","anlise-da-base-rais_files/tippy-6.2.7/tippy-bundle.umd.min.js","anlise-da-base-rais_files/tippy-6.2.7/tippy-light-border.css","anlise-da-base-rais_files/tippy-6.2.7/tippy.css","anlise-da-base-rais_files/tippy-6.2.7/tippy.umd.min.js","anlise-da-base-rais_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1534,10 +1534,11 @@ Anual de Informações Sociais (RAIS)</a></li>
 </ol>
 <h2 id="premissas">Premissas:</h2>
 <ol type="1">
-<li>Cientistas de dados são cadastrados com os seguintes códigos do CBO
-(<a
+<li>Cientistas de dados possivelmente foram cadastrados com os seguintes
+códigos do CBO (<a
 href="http://www.mtecbo.gov.br/cbosite/pages/pesquisas/BuscaPorCodigo.jsf">Código
-Brasileiro de Ocupações</a>):
+Brasileiro de Ocupações</a>), antes da inserção do seu código 2031-05 em
+2022:
 <ol type="1">
 <li>252515: Analista de cobrança (instituições financeiras)</li>
 <li>252525: Analista de crédito (instituições financeiras)</li>
@@ -1549,7 +1550,7 @@ Brasileiro de Ocupações</a>):
 <li>131120: Gerente de serviços sociais</li>
 </ol></li>
 </ol>
-<h2 id="resolução">Resolução:</h2>
+<h2 id="análise-exploratória">Análise Exploratória:</h2>
 <h3 id="acessando-os-dados-da-rais">Acessando os dados da RAIS</h3>
 <p>Utilizando o datalake da iniciativa <a
 href="https://basedosdados.org">Base dos Dados</a>. Armazenada na Google
@@ -1578,7 +1579,6 @@ Cloud</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>codigos_cbo</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"252515"</span>, <span class='st'>"252525"</span>, <span class='st'>"211110"</span>, <span class='st'>"211205"</span>, <span class='st'>"211210"</span>, <span class='st'>"411035"</span>, <span class='st'>"211215"</span>, <span class='st'>"131120"</span><span class='op'>)</span></span>
-<span><span class='va'>cbo_engenheiro_civil</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2142-05"</span>, <span class='st'>"2142-10"</span>, <span class='st'>"2142-15"</span>, <span class='st'>"2142-20"</span>, <span class='st'>"2142-25"</span>, <span class='st'>"2142-30"</span>, <span class='st'>"2142-35"</span>, <span class='st'>"2142-40"</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='co'># Filtrando pelo cbo e os anos acima de 2013</span></span>
 <span><span class='va'>tabela_microdados_vinculos_tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/tbl.html'>tbl</a></span><span class='op'>(</span><span class='va'>conexao</span>, <span class='st'>"microdados_vinculos"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
@@ -1592,8 +1592,8 @@ Cloud</p>
 </div>
 </div>
 <h3
-id="escrevendo-os-dados-filtrados-em-arquivo-para-evitar-está-requisitando-ao-google-cloud-sempre-que-o-script-for-executado">Escrevendo
-os dados filtrados em arquivo para evitar está requisitando ao Google
+id="escrevendo-os-dados-filtrados-em-arquivo-para-evitar-novas-requisições-ao-google-cloud-sempre-que-o-script-for-executado">Escrevendo
+os dados filtrados em arquivo para evitar novas requisições ao Google
 Cloud sempre que o script for executado</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1608,45 +1608,19 @@ os dados a partir do arquivo escrito na etapa anterior</h3>
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>tabela_microdados_vinculos</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span><span class='op'>(</span><span class='st'>"tabela_microdados_vinculos.rds"</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<h3 id="verificação-cbo">Verificação CBO</h3>
+<h3
+id="ª-questão-quanto-ganhou-em-média-um-ciêntista-de-dados-no-brasil-em-2020">1ª
+Questão: Quanto ganhou em média um Ciêntista de Dados no Brasil em
+2020?</h3>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
-<span><span class='va'>codigos_cbo</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"252515"</span>, <span class='st'>"252525"</span>, <span class='st'>"211110"</span>, <span class='st'>"211205"</span>, <span class='st'>"211210"</span>, <span class='st'>"411035"</span>, <span class='st'>"211215"</span>, <span class='st'>"131120"</span><span class='op'>)</span></span>
-<span><span class='va'>tabela_medias_CBO</span> <span class='op'>&lt;-</span> <span class='va'>tabela_microdados_vinculos</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>cbo_2002</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>media_salario <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>valor_remuneracao_media</span><span class='op'>)</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>tabela_medias_CBO</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>codigos_cbo</span>, y <span class='op'>=</span> <span class='va'>media_salario</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"CBO"</span>, x <span class='op'>=</span> <span class='st'>"Salário Médio (R$)"</span><span class='op'>)</span></span></code></pre>
+
 </div>
-<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
-<span><span class='va'>codigos_cbo</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"252515"</span>, <span class='st'>"252525"</span>, <span class='st'>"211110"</span>, <span class='st'>"211205"</span>, <span class='st'>"211210"</span>, <span class='st'>"411035"</span>, <span class='st'>"211215"</span>, <span class='st'>"131120"</span><span class='op'>)</span></span>
-<span><span class='va'>tabela_medias_ano</span> <span class='op'>&lt;-</span> <span class='va'>tabela_microdados_vinculos</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>ano</span>, <span class='va'>cbo_2002</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>media_salario <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>valor_remuneracao_media</span><span class='op'>)</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>tabela_medias_ano</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ano</span>, y <span class='op'>=</span> <span class='va'>media_salario</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"CBO"</span>, x <span class='op'>=</span> <span class='st'>"Salário Médio (R$)"</span><span class='op'>)</span></span></code></pre>
-</div>
-<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
-</div>
-<h3 id="ª-questão-quanto-a-média-salarial-variou-com-o-tempo">1ª
+<h3 id="ª-questão-quanto-a-média-salarial-variou-com-o-tempo">2ª
 Questão: Quanto a média salarial variou com o tempo?</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># pacote para plotagem de gráficos</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>tabela_medias</span> <span class='op'>&lt;-</span> <span class='va'>tabela_microdados_vinculos</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>ano</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
@@ -1658,7 +1632,7 @@ Questão: Quanto a média salarial variou com o tempo?</h3>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fl'>2013</span><span class='op'>:</span><span class='fl'>2020</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"Ano"</span>, x <span class='op'>=</span> <span class='st'>"Salário Médio (R$)"</span><span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
+<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <table>
@@ -1704,7 +1678,7 @@ Questão: Quanto a média salarial variou com o tempo?</h3>
 </tbody>
 </table>
 </div>
-<h3 id="ª-questão-quanto-a-média-salarial-varia-regionalmente">2ª
+<h3 id="ª-questão-quanto-a-média-salarial-varia-regionalmente">3ª
 Questão: Quanto a média salarial varia regionalmente?</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1724,14 +1698,15 @@ Questão: Quanto a média salarial varia regionalmente?</h3>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"Unidade da Federação"</span>, x <span class='op'>=</span> <span class='st'>"Média Salarial (R$)"</span><span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-11-1.png" width="624" /></p>
+<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
 </div>
 <h4
-id="será-que-há-muitos-salários-discrepantes-puxando-muito-a-média-pra-cima-vamos-verificar-o-comportamento-no-caso-da-mediana">Será
-que há muitos salários discrepantes puxando muito a média pra cima?
-Vamos verificar o comportamento no caso da mediana:</h4>
+id="será-que-há-muitos-salários-discrepantes-puxando-a-média-pra-cima-de-tal-forma-que-deixe-de-representar-brm-a-amostra-vamos-verificar-o-comportamento-no-caso-da-mediana">Será
+que há muitos salários discrepantes puxando a média pra cima de tal
+forma que deixe de representar brm a amostra? Vamos verificar o
+comportamento no caso da mediana:</h4>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
+<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
 </div>
 <h3 id="os-salários-variam-pelo-sexo">Os salários variam pelo sexo?</h3>
 <div class="layout-chunk" data-layout="l-body">
@@ -1747,7 +1722,7 @@ Vamos verificar o comportamento no caso da mediana:</h4>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sexo</span>, y <span class='op'>=</span> <span class='va'>media</span>, fill <span class='op'>=</span> <span class='va'>sexo</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
-<img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-13-1.png" width="624" />
+<img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-11-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>tabela_resumo_sexo</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
@@ -1904,12 +1879,31 @@ etnia?</h3>
 </tr>
 </tbody>
 </table>
-<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-15-1.png" width="624" /></p>
+<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-13-1.png" width="624" /></p>
 </div>
 <h2 id="restrições">Restrições:</h2>
 <ol type="1">
 <li>Os dados são apenas de vínculos formais.</li>
+<li>Os salários médios são bem diferentes entre os CBO’s, o que indica
+que estes podem não ter sido os melhores códigos a serem
+escolhidos.</li>
 </ol>
+<h3 id="verificação-cbo">Verificação CBO</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
+<span><span class='va'>codigos_cbo</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"252515"</span>, <span class='st'>"252525"</span>, <span class='st'>"211110"</span>, <span class='st'>"211205"</span>, <span class='st'>"211210"</span>, <span class='st'>"411035"</span>, <span class='st'>"211215"</span>, <span class='st'>"131120"</span><span class='op'>)</span></span>
+<span><span class='va'>tabela_medias_CBO</span> <span class='op'>&lt;-</span> <span class='va'>tabela_microdados_vinculos</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>cbo_2002</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>media_salario <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>valor_remuneracao_media</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>tabela_medias_CBO</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>codigos_cbo</span>, y <span class='op'>=</span> <span class='va'>media_salario</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"Salário médio (R$)"</span>, x <span class='op'>=</span> <span class='st'>"Códigos por ocupação"</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-14-1.png" width="624" /></p>
+</div>
 <p><strong>Dica:</strong> Distill is a publication format for scientific
 and technical writing, native to the web. Learn more about using Distill
 at <a href="https://rstudio.github.io/distill"
