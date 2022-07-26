@@ -86,7 +86,12 @@ tabela_microdados_vinculos <- readRDS("tabela_microdados_vinculos.rds")
 ```
 ### 1ª Questão: Quanto ganhou em média um Ciêntista de Dados no Brasil em 2020?
 ```{r echo=TRUE}
+tabela_2020 <- tabela_microdados_vinculos |>
+  filter(ano == "2020") |>
+  summarise(media2020 = mean(valor_remuneracao_media), mediana2020 = median(valor_remuneracao_media))
 
+tabela_2020 |>
+  knitr::kable()
 ```
 
 ### 2ª Questão: Quanto a média salarial variou com o tempo?
@@ -94,19 +99,19 @@ tabela_microdados_vinculos <- readRDS("tabela_microdados_vinculos.rds")
 # pacote para plotagem de gráficos
 library(ggplot2)
 
-tabela_medias <- tabela_microdados_vinculos |>
+tabela_medias_anuais <- tabela_microdados_vinculos |>
   group_by(ano) |>
-  summarise(media_salario = mean(valor_remuneracao_media))
+  summarise(mediaAnual = mean(valor_remuneracao_media))
 
-ggplot(tabela_medias) +
-  aes(x = ano, y = media_salario) +
+ggplot(tabela_medias_anuais) +
+  aes(x = ano, y = mediaAnual) +
   geom_col() +
   scale_x_continuous(breaks = 2013:2020) +
   labs(y = "Ano", x = "Salário Médio (R$)")
 ```
 
 ```{r}
-tabela_medias |>
+tabela_medias_anuais |>
   knitr::kable()
 ```
 
@@ -129,7 +134,7 @@ tabela_media_uf |>
   geom_col() +
   labs(y = "Unidade da Federação", x = "Média Salarial (R$)")
 ```
-#### Será que há muitos salários discrepantes puxando a média pra cima de tal forma que deixe de representar brm a amostra? Vamos verificar o comportamento no caso da mediana:
+#### Será que há muitos salários discrepantes puxando a média pra cima de tal forma que deixe de representar bem a amostra? Vamos verificar o comportamento no caso da mediana:
 ```{r}
 tabela_mediana_uf <- tabela_microdados_vinculos |>
   group_by(sigla_uf) |>
@@ -147,14 +152,16 @@ tabela_mediana_uf |>
   labs(y = "Unidade da Federação", x = "Mediana Salarial (R$)")
 ```
 
-### Os salários variam pelo sexo?
+### 3ª Questão: Quanto a média salarial varia com as caracteristicas dos profissionais?
+#### Pelo Sexo:
 ```{r echo=TRUE}
 tabela_resumo_sexo <- tabela_microdados_vinculos |>
   group_by(sexo) |>
   summarise(
     media = mean(valor_remuneracao_media),
     mediana = median(valor_remuneracao_media)
-  )
+  ) |>
+  mutate(sexo, sexo = ifelse(sexo == "1", "Masculino", "Feminino"))
 
 ggplot(tabela_resumo_sexo) +
   aes(x = sexo, y = media, fill = sexo) +
@@ -164,30 +171,46 @@ tabela_resumo_sexo |>
   knitr::kable()
 ```
 
-### Os salários variam pela etnia?
+#### Pela Etnia:
 ```{r}
 tabela_resumo_raca_cor <- tabela_microdados_vinculos |>
   group_by(raca_cor) |>
   summarise(
     media = mean(valor_remuneracao_media),
     mediana = median(valor_remuneracao_media)
-  )
+  ) |>
+  mutate(raca_cor = ifelse(raca_cor == "1", "Indígena",
+                            ifelse(raca_cor == "2", "Branca",
+                                   ifelse(raca_cor == "4", "Preta",
+                                          ifelse(raca_cor == "6", "Amarela",
+                                                 ifelse(raca_cor == "8", "Parda",
+                                                        ifelse(raca_cor == "9", "Não Identificado", "Ignorado"
+                                                               ))))))) |>
+  mutate(raca_cor = fct_reorder(raca_cor, media))
+
+ggplot(tabela_resumo_raca_cor) +
+  aes(x = raca_cor, y = media, fill = raca_cor) +
+  geom_col()
+ggplot(tabela_resumo_raca_cor) +
+  aes(x = raca_cor, y = mediana, fill = raca_cor) +
+  geom_col()
+
 tabela_resumo_raca_cor |>
   knitr::kable()
 ```
 
+#### Pela Idade:
 ```{r}
-tabela_resumo_sexo_raca_cor <- tabela_microdados_vinculos |>
-  group_by(sexo, raca_cor) |>
+tabela_resumo_idade <- tabela_microdados_vinculos |>
+  group_by(idade) |>
   summarise(
     media = mean(valor_remuneracao_media),
     mediana = median(valor_remuneracao_media)
   )
-tabela_resumo_sexo_raca_cor |>
-  knitr::kable()
-ggplot(tabela_resumo_sexo_raca_cor, 
-       aes(x = raca_cor, y = media, fill = sexo)) +
-  geom_col(position = 'dodge')
+
+ggplot(tabela_resumo_idade, 
+       aes(x = idade, y = media, fill = idade)) +
+  geom_col()
 ```
 
 

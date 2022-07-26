@@ -118,7 +118,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["anlise-da-base-rais_files/anchor-4.2.2/anchor.min.js","anlise-da-base-rais_files/bowser-1.9.3/bowser.min.js","anlise-da-base-rais_files/distill-2.2.21/template.v2.js","anlise-da-base-rais_files/figure-html5/unnamed-chunk-10-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-11-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-12-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-13-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-14-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-15-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-3-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-5-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-6-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-7-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-8-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-9-1.png","anlise-da-base-rais_files/header-attrs-2.14/header-attrs.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.map","anlise-da-base-rais_files/popper-2.6.0/popper.min.js","anlise-da-base-rais_files/tippy-6.2.7/tippy-bundle.umd.min.js","anlise-da-base-rais_files/tippy-6.2.7/tippy-light-border.css","anlise-da-base-rais_files/tippy-6.2.7/tippy.css","anlise-da-base-rais_files/tippy-6.2.7/tippy.umd.min.js","anlise-da-base-rais_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["anlise-da-base-rais_files/anchor-4.2.2/anchor.min.js","anlise-da-base-rais_files/bowser-1.9.3/bowser.min.js","anlise-da-base-rais_files/distill-2.2.21/template.v2.js","anlise-da-base-rais_files/figure-html5/unnamed-chunk-10-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-11-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-12-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-12-2.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-13-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-14-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-15-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-3-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-5-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-6-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-7-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-8-1.png","anlise-da-base-rais_files/figure-html5/unnamed-chunk-9-1.png","anlise-da-base-rais_files/header-attrs-2.14/header-attrs.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.js","anlise-da-base-rais_files/jquery-3.6.0/jquery-3.6.0.min.map","anlise-da-base-rais_files/popper-2.6.0/popper.min.js","anlise-da-base-rais_files/tippy-6.2.7/tippy-bundle.umd.min.js","anlise-da-base-rais_files/tippy-6.2.7/tippy-light-border.css","anlise-da-base-rais_files/tippy-6.2.7/tippy.css","anlise-da-base-rais_files/tippy-6.2.7/tippy.umd.min.js","anlise-da-base-rais_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1613,7 +1613,28 @@ id="ª-questão-quanto-ganhou-em-média-um-ciêntista-de-dados-no-brasil-em-2020
 Questão: Quanto ganhou em média um Ciêntista de Dados no Brasil em
 2020?</h3>
 <div class="layout-chunk" data-layout="l-body">
-
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>tabela_2020</span> <span class='op'>&lt;-</span> <span class='va'>tabela_microdados_vinculos</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>ano</span> <span class='op'>==</span> <span class='st'>"2020"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>media2020 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>valor_remuneracao_media</span><span class='op'>)</span>, mediana2020 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>valor_remuneracao_media</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>tabela_2020</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">media2020</th>
+<th style="text-align: right;">mediana2020</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">4823.555</td>
+<td style="text-align: right;">3412.88</td>
+</tr>
+</tbody>
+</table>
 </div>
 <h3 id="ª-questão-quanto-a-média-salarial-variou-com-o-tempo">2ª
 Questão: Quanto a média salarial variou com o tempo?</h3>
@@ -1622,12 +1643,12 @@ Questão: Quanto a média salarial variou com o tempo?</h3>
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># pacote para plotagem de gráficos</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>tabela_medias</span> <span class='op'>&lt;-</span> <span class='va'>tabela_microdados_vinculos</span> <span class='op'>|&gt;</span></span>
+<span><span class='va'>tabela_medias_anuais</span> <span class='op'>&lt;-</span> <span class='va'>tabela_microdados_vinculos</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>ano</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>media_salario <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>valor_remuneracao_media</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>mediaAnual <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>valor_remuneracao_media</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>tabela_medias</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ano</span>, y <span class='op'>=</span> <span class='va'>media_salario</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>tabela_medias_anuais</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>ano</span>, y <span class='op'>=</span> <span class='va'>mediaAnual</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fl'>2013</span><span class='op'>:</span><span class='fl'>2020</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"Ano"</span>, x <span class='op'>=</span> <span class='st'>"Salário Médio (R$)"</span><span class='op'>)</span></span></code></pre>
@@ -1639,7 +1660,7 @@ Questão: Quanto a média salarial variou com o tempo?</h3>
 <thead>
 <tr class="header">
 <th style="text-align: right;">ano</th>
-<th style="text-align: right;">media_salario</th>
+<th style="text-align: right;">mediaAnual</th>
 </tr>
 </thead>
 <tbody>
@@ -1701,14 +1722,18 @@ Questão: Quanto a média salarial varia regionalmente?</h3>
 <p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
 </div>
 <h4
-id="será-que-há-muitos-salários-discrepantes-puxando-a-média-pra-cima-de-tal-forma-que-deixe-de-representar-brm-a-amostra-vamos-verificar-o-comportamento-no-caso-da-mediana">Será
+id="será-que-há-muitos-salários-discrepantes-puxando-a-média-pra-cima-de-tal-forma-que-deixe-de-representar-bem-a-amostra-vamos-verificar-o-comportamento-no-caso-da-mediana">Será
 que há muitos salários discrepantes puxando a média pra cima de tal
-forma que deixe de representar brm a amostra? Vamos verificar o
+forma que deixe de representar bem a amostra? Vamos verificar o
 comportamento no caso da mediana:</h4>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
 </div>
-<h3 id="os-salários-variam-pelo-sexo">Os salários variam pelo sexo?</h3>
+<h3
+id="ª-questão-quanto-a-média-salarial-varia-com-as-caracteristicas-dos-profissionais">3ª
+Questão: Quanto a média salarial varia com as caracteristicas dos
+profissionais?</h3>
+<h4 id="pelo-sexo">Pelo Sexo:</h4>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>tabela_resumo_sexo</span> <span class='op'>&lt;-</span> <span class='va'>tabela_microdados_vinculos</span> <span class='op'>|&gt;</span></span>
@@ -1716,7 +1741,8 @@ comportamento no caso da mediana:</h4>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span></span>
 <span>    media <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>valor_remuneracao_media</span><span class='op'>)</span>,</span>
 <span>    mediana <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>valor_remuneracao_media</span><span class='op'>)</span></span>
-<span>  <span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>sexo</span>, sexo <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>sexo</span> <span class='op'>==</span> <span class='st'>"1"</span>, <span class='st'>"Masculino"</span>, <span class='st'>"Feminino"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>tabela_resumo_sexo</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sexo</span>, y <span class='op'>=</span> <span class='va'>media</span>, fill <span class='op'>=</span> <span class='va'>sexo</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -1737,21 +1763,21 @@ comportamento no caso da mediana:</h4>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1</td>
+<td style="text-align: left;">Masculino</td>
 <td style="text-align: right;">5397.193</td>
 <td style="text-align: right;">4000.0</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">2</td>
+<td style="text-align: left;">Feminino</td>
 <td style="text-align: right;">3649.779</td>
 <td style="text-align: right;">2359.1</td>
 </tr>
 </tbody>
 </table>
 </div>
-<h3 id="os-salários-variam-pela-etnia">Os salários variam pela
-etnia?</h3>
+<h4 id="pela-etnia">Pela Etnia:</h4>
 <div class="layout-chunk" data-layout="l-body">
+<p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-12-1.png" width="624" /><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-12-2.png" width="624" /></p>
 <table>
 <thead>
 <tr class="header">
@@ -1762,123 +1788,40 @@ etnia?</h3>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1</td>
+<td style="text-align: left;">Indígena</td>
 <td style="text-align: right;">3200.315</td>
 <td style="text-align: right;">2814.955</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">2</td>
+<td style="text-align: left;">Branca</td>
 <td style="text-align: right;">4355.907</td>
 <td style="text-align: right;">2977.775</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">4</td>
+<td style="text-align: left;">Preta</td>
 <td style="text-align: right;">3115.713</td>
 <td style="text-align: right;">2148.900</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">6</td>
+<td style="text-align: left;">Amarela</td>
 <td style="text-align: right;">6800.561</td>
 <td style="text-align: right;">5409.820</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">8</td>
+<td style="text-align: left;">Parda</td>
 <td style="text-align: right;">2797.077</td>
 <td style="text-align: right;">1806.400</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">9</td>
+<td style="text-align: left;">Não Identificado</td>
 <td style="text-align: right;">5665.834</td>
 <td style="text-align: right;">4779.850</td>
 </tr>
 </tbody>
 </table>
 </div>
+<h4 id="pela-idade">Pela Idade:</h4>
 <div class="layout-chunk" data-layout="l-body">
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">sexo</th>
-<th style="text-align: left;">raca_cor</th>
-<th style="text-align: right;">media</th>
-<th style="text-align: right;">mediana</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: right;">3287.617</td>
-<td style="text-align: right;">2821.700</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: right;">5311.689</td>
-<td style="text-align: right;">3752.490</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">4</td>
-<td style="text-align: right;">3547.412</td>
-<td style="text-align: right;">2396.870</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">6</td>
-<td style="text-align: right;">7873.850</td>
-<td style="text-align: right;">6392.740</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">8</td>
-<td style="text-align: right;">3311.193</td>
-<td style="text-align: right;">2105.990</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">9</td>
-<td style="text-align: right;">6700.049</td>
-<td style="text-align: right;">6691.930</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: right;">3059.924</td>
-<td style="text-align: right;">2655.995</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: right;">3731.934</td>
-<td style="text-align: right;">2631.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">4</td>
-<td style="text-align: right;">2810.014</td>
-<td style="text-align: right;">1998.670</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">6</td>
-<td style="text-align: right;">5851.433</td>
-<td style="text-align: right;">4747.320</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">8</td>
-<td style="text-align: right;">2485.005</td>
-<td style="text-align: right;">1655.670</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">9</td>
-<td style="text-align: right;">4566.266</td>
-<td style="text-align: right;">2574.650</td>
-</tr>
-</tbody>
-</table>
 <p><img src="anlise-da-base-rais_files/figure-html5/unnamed-chunk-13-1.png" width="624" /></p>
 </div>
 <h2 id="restrições">Restrições:</h2>
